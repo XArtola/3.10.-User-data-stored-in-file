@@ -26,13 +26,9 @@ public class User {
 	public void setUsername(String username) {
 
 		if (!username.matches("[a-zA-Z]+")) {
-
-		}
-
-		else {
 			this.username = username;
-
 		}
+
 
 	}
 

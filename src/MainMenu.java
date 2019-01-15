@@ -5,6 +5,7 @@
 import com.zubiri.User.*;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -18,7 +19,7 @@ public class MainMenu {
 	/**
 	 * @param args
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws FileNotFoundException {
 		// TODO Auto-generated method stub
 
 		Scanner sc = new Scanner(System.in);
@@ -26,9 +27,9 @@ public class MainMenu {
 		int loggedIndex = -1;
 		boolean finish = false;
 
-		File database = new File("C:\\Users\\ik013043z1\\Desktop\\UserInfo.txt");
+		File database = new File("C:\\Users\\Xabier\\Desktop\\UsersInfo.txt");
 
-		Scanner databaseScanner = new Scanner("C:\\Users\\ik013043z1\\Desktop\\UserInfo.txt");
+		Scanner databaseScanner = new Scanner(database);
 
 		ArrayList<User> users = new ArrayList<User>();
 
@@ -36,20 +37,23 @@ public class MainMenu {
 
 			String userData = databaseScanner.nextLine();
 
+			System.out.println(userData);
+
 			String[] separatedUserData = userData.split(" ");
 
-			String username = separatedUserData[0];
-			
-			User user = new User(username, "1234abcd=");
-
-
-			//String password = separatedUserData[1];
-
-			//User user = new User(username, password);
+			User user = new User(separatedUserData[0], separatedUserData[1]);
 
 			users.add(user);
 
 		}
+
+		// Proba
+
+		for (int i = 0; i < users.size(); i++)
+
+			System.out.println(users.get(i).getUsername() + " " + users.get(i).getPassword());
+
+		// Proba
 
 		while (!finish) {
 
@@ -100,17 +104,16 @@ public class MainMenu {
 						users.add(user2);
 
 						try {
-							// Create a FileWriter with the path of the file we want to write in
-							FileWriter fw = new FileWriter(database);
-							// Write the scanned text in the file
-							fw.write(username + " " + password);
 
-							// Close the writer
+							FileWriter fw = new FileWriter(database, true);
+
+							fw.write(username + " " + password);
+							fw.write(System.getProperty("line.separator"));
+
 							fw.close();
 
-							// ...and if any exception appears...
 						} catch (Exception e) {
-							// ...print a message with the error
+
 							System.err.println("Error: " + e.getMessage());
 						}
 
@@ -164,9 +167,13 @@ public class MainMenu {
 						loggedIndex = i;
 
 						System.out.println("You are now loged in as " + users.get(i).getUsername() + "\n");
+
+						break;
 					}
 				}
-				break;
+				if (loggedIndex == -1)
+
+					System.out.println("Incorrect user/password or non-existent");
 
 			case 4:
 
