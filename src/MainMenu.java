@@ -37,8 +37,6 @@ public class MainMenu {
 
 			String userData = databaseScanner.nextLine();
 
-			System.out.println(userData);
-
 			String[] separatedUserData = userData.split(" ");
 
 			User user = new User(separatedUserData[0], separatedUserData[1]);
@@ -46,14 +44,6 @@ public class MainMenu {
 			users.add(user);
 
 		}
-
-		// Proba
-
-		for (int i = 0; i < users.size(); i++)
-
-			System.out.println(users.get(i).getUsername() + " " + users.get(i).getPassword());
-
-		// Proba
 
 		while (!finish) {
 
